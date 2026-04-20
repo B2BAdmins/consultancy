@@ -1,1080 +1,349 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>B2BAdmin — Administrative Solutions</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  :root {
-    --bg: #F7F6F2;
-    --white: #FFFFFF;
-    --surface: #EFEDE7;
-    --border: #DDD9D0;
-    --accent: #1A3A2A;
-    --accent2: #C4873A;
-    --accent-light: rgba(26,58,42,0.07);
-    --text: #1A1A1A;
-    --muted: #6E6B63;
-    --light-text: #9C9890;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Outfit', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    overflow-x: hidden;
-    line-height: 1.6;
-  }
-
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 0 6vw;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(247,246,242,0.92);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .logo {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 700;
-    font-size: 1.2rem;
-    letter-spacing: -0.02em;
-    color: var(--accent);
-  }
-  .logo span { color: var(--accent2); }
-
-  nav ul { list-style: none; display: flex; gap: 2.5rem; }
-  nav ul a {
-    text-decoration: none;
-    color: var(--muted);
-    font-size: 0.875rem;
-    font-weight: 400;
-    transition: color 0.2s;
-  }
-  nav ul a:hover { color: var(--text); }
-
-  .nav-cta {
-    background: var(--accent) !important;
-    color: #fff !important;
-    padding: 0.5rem 1.25rem;
-    font-weight: 500 !important;
-    transition: background 0.2s !important;
-  }
-  .nav-cta:hover { background: #0f2318 !important; }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    padding: 70px 6vw 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    gap: 4rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-glow1 {
-    position: absolute;
-    top: -80px; right: -180px;
-    width: 650px; height: 650px;
-    background: radial-gradient(ellipse, rgba(196,135,58,0.09) 0%, transparent 65%);
-    pointer-events: none;
-  }
-  .hero-glow2 {
-    position: absolute;
-    bottom: -80px; left: -80px;
-    width: 500px; height: 500px;
-    background: radial-gradient(ellipse, rgba(26,58,42,0.05) 0%, transparent 65%);
-    pointer-events: none;
-  }
-
-  .hero-left { position: relative; z-index: 1; }
-
-  .hero-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--accent-light);
-    border: 1px solid rgba(26,58,42,0.15);
-    padding: 0.4rem 1rem;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 2rem;
-    opacity: 0;
-    animation: fadeUp 0.7s 0.1s forwards;
-  }
-
-  .hero h1 {
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(2.8rem, 4.5vw, 4.5rem);
-    font-weight: 400;
-    line-height: 1.1;
-    color: var(--text);
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.7s 0.2s forwards;
-  }
-  .hero h1 em { font-style: italic; color: var(--accent); }
-
-  .hero-desc {
-    font-size: 1.05rem;
-    color: var(--muted);
-    font-weight: 300;
-    max-width: 480px;
-    line-height: 1.75;
-    margin-bottom: 2.5rem;
-    opacity: 0;
-    animation: fadeUp 0.7s 0.3s forwards;
-  }
-
-  .hero-note {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 0.82rem;
-    color: var(--light-text);
-    font-weight: 400;
-    opacity: 0;
-    animation: fadeUp 0.7s 0.45s forwards;
-  }
-  .hero-note::before {
-    content: '';
-    display: block;
-    width: 32px; height: 1px;
-    background: var(--border);
-  }
-
-  .hero-right {
-    position: relative; z-index: 1;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.4s forwards;
-  }
-
-  .hero-visual {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 2.5rem;
-    box-shadow: 0 12px 48px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.04);
-  }
-
-  .hv-label {
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--light-text);
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-  }
-
-  .hv-node {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    padding: 1rem 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    border-radius: 3px;
-  }
-  .hv-node.featured {
-    background: var(--accent);
-    border-color: var(--accent);
-  }
-  .hv-node-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--border);
-    flex-shrink: 0;
-  }
-  .hv-node.featured .hv-node-dot { background: var(--accent2); }
-
-  .hv-node-name { font-weight: 600; font-size: 0.9rem; color: var(--text); line-height: 1.2; }
-  .hv-node.featured .hv-node-name { color: #fff; }
-  .hv-node-role { font-size: 0.75rem; color: var(--muted); font-weight: 300; margin-top: 0.15rem; }
-  .hv-node.featured .hv-node-role { color: rgba(255,255,255,0.6); }
-
-  .hv-connector {
-    width: 1px; height: 28px;
-    background: linear-gradient(to bottom, var(--border), var(--accent2), var(--border));
-    margin: 0 0 0 1.8rem;
-    position: relative;
-  }
-
-  .hv-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: var(--border);
-    margin-top: 1.5rem;
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  .hv-stat {
-    background: var(--white);
-    padding: 1rem 1.25rem;
-    text-align: center;
-  }
-  .hv-stat-num {
-    font-family: 'Instrument Serif', serif;
-    font-size: 1.8rem;
-    color: var(--accent);
-    line-height: 1;
-  }
-  .hv-stat-label {
-    font-size: 0.7rem;
-    color: var(--light-text);
-    margin-top: 0.3rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    font-weight: 600;
-  }
-
-  /* SECTIONS */
-  section { padding: 6rem 6vw; position: relative; }
-
-  .section-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent2);
-    margin-bottom: 1.25rem;
-  }
-  .section-tag::before {
-    content: '';
-    display: block;
-    width: 18px; height: 2px;
-    background: var(--accent2);
-  }
-
-  .section-title {
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(1.9rem, 3vw, 2.9rem);
-    font-weight: 400;
-    line-height: 1.15;
-    color: var(--text);
-    margin-bottom: 1rem;
-  }
-
-  .section-body {
-    font-size: 1rem;
-    color: var(--muted);
-    line-height: 1.75;
-    font-weight: 300;
-    max-width: 580px;
-  }
-
-  /* WHAT WE DO */
-  #what-we-do { border-top: 1px solid var(--border); }
-
-  .wwd-layout {
-    display: grid;
-    grid-template-columns: 1fr 1.05fr;
-    gap: 5rem;
-    align-items: start;
-    margin-top: 3.5rem;
-  }
-
-  .service-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    padding: 2rem;
-    margin-bottom: 1rem;
-    border-radius: 4px;
-    position: relative;
-    overflow: hidden;
-    transition: box-shadow 0.3s, transform 0.3s;
-  }
-  .service-card:hover {
-    box-shadow: 0 8px 32px rgba(0,0,0,0.07);
-    transform: translateY(-2px);
-  }
-  .service-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(to right, var(--accent), var(--accent2));
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .service-card:hover::after { opacity: 1; }
-
-  .service-num {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    color: var(--accent2);
-    margin-bottom: 0.9rem;
-    text-transform: uppercase;
-  }
-  .service-title {
-    font-weight: 600;
-    font-size: 1.05rem;
-    color: var(--text);
-    margin-bottom: 0.6rem;
-  }
-  .service-desc {
-    font-size: 0.9rem;
-    color: var(--muted);
-    line-height: 1.7;
-    font-weight: 300;
-  }
-
-  .compare-block { padding-top: 0.5rem; }
-
-  .compare-title {
-    font-family: 'Instrument Serif', serif;
-    font-size: 1.5rem;
-    color: var(--text);
-    margin-bottom: 1.25rem;
-    line-height: 1.25;
-  }
-
-  .compare-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin: 1.5rem 0;
-  }
-
-  .compare-col {
-    padding: 1.5rem;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-  }
-  .compare-col.bad { background: #fafafa; opacity: 0.75; }
-  .compare-col.good { background: var(--accent); }
-
-  .compare-col-head {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    color: var(--light-text);
-  }
-  .compare-col.good .compare-col-head { color: rgba(255,255,255,0.5); }
-
-  .compare-col-line {
-    font-size: 0.85rem;
-    color: var(--muted);
-    padding: 0.4rem 0;
-    border-bottom: 1px solid var(--border);
-    font-weight: 300;
-  }
-  .compare-col-line:last-of-type { border-bottom: none; }
-  .compare-col.good .compare-col-line { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.12); }
-
-  .compare-verdict {
-    font-size: 0.78rem;
-    font-style: italic;
-    color: var(--light-text);
-    margin-top: 0.75rem;
-  }
-  .compare-col.good .compare-verdict { color: rgba(255,255,255,0.45); }
-
-  /* HOW IT WORKS */
-  #how-it-works {
-    background: var(--white);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .hiw-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: end;
-    margin-bottom: 3.5rem;
-  }
-
-  .flow-steps {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-
-  .flow-step {
-    padding: 2.5rem 1.75rem;
-    border-right: 1px solid var(--border);
-    background: var(--white);
-    transition: background 0.25s;
-  }
-  .flow-step:hover { background: var(--bg); }
-  .flow-step:last-child { border-right: none; }
-
-  .flow-num {
-    font-family: 'Instrument Serif', serif;
-    font-size: 2.4rem;
-    color: var(--border);
-    line-height: 1;
-    margin-bottom: 1rem;
-    transition: color 0.25s;
-  }
-  .flow-step:hover .flow-num { color: var(--accent2); }
-
-  .flow-step-title {
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: var(--text);
-    margin-bottom: 0.6rem;
-  }
-  .flow-step-desc {
-    font-size: 0.85rem;
-    color: var(--muted);
-    line-height: 1.65;
-    font-weight: 300;
-  }
-
-  /* SECTORS */
-  #sectors { background: var(--bg); border-top: 1px solid var(--border); }
-
-  .sectors-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: end;
-    margin-bottom: 3rem;
-  }
-
-  .sectors-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-  }
-
-  .sector-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    padding: 1.75rem;
-    border-radius: 4px;
-    transition: border-color 0.25s, box-shadow 0.25s;
-    cursor: default;
-  }
-  .sector-card:hover {
-    border-color: var(--accent);
-    box-shadow: 0 4px 20px rgba(26,58,42,0.07);
-  }
-
-  .sector-icon { font-size: 1.5rem; margin-bottom: 1rem; display: block; }
-  .sector-name { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 0.5rem; }
-  .sector-note { font-size: 0.82rem; color: var(--muted); line-height: 1.6; font-weight: 300; }
-
-  /* WHY US */
-  #why-us {
-    background: var(--white);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .why-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: start;
-    margin-top: 3rem;
-  }
-
-  .why-list { list-style: none; margin-top: 1rem; }
-  .why-list li {
-    display: flex;
-    gap: 1.25rem;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid var(--border);
-    align-items: flex-start;
-  }
-  .why-list li:first-child { padding-top: 0; }
-  .why-list li:last-child { border-bottom: none; }
-
-  .why-icon {
-    width: 32px; height: 32px;
-    background: var(--accent-light);
-    border: 1px solid rgba(26,58,42,0.15);
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-size: 0.85rem;
-    color: var(--accent);
-  }
-
-  .why-text strong { display: block; font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 0.3rem; }
-  .why-text span { font-size: 0.88rem; color: var(--muted); line-height: 1.65; font-weight: 300; }
-
-  .diagram-wrap {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 2.5rem;
-  }
-  .diag-title {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--light-text);
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-  .diag-node {
-    background: var(--white);
-    border: 1px solid var(--border);
-    padding: 1rem 1.5rem;
-    text-align: center;
-    border-radius: 3px;
-  }
-  .diag-node.center {
-    background: var(--accent);
-    border-color: var(--accent);
-    padding: 1.25rem 1.5rem;
-  }
-  .diag-node-name { font-weight: 600; font-size: 0.95rem; color: var(--text); }
-  .diag-node.center .diag-node-name { color: #fff; font-size: 1rem; }
-  .diag-node-sub { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; font-weight: 300; }
-  .diag-node.center .diag-node-sub { color: rgba(255,255,255,0.6); }
-
-  .diag-line {
-    width: 1px; height: 36px;
-    background: linear-gradient(to bottom, var(--border), var(--accent2), var(--border));
-    margin: 0 auto;
-  }
-  .diag-caption {
-    text-align: center;
-    font-size: 0.78rem;
-    color: var(--light-text);
-    margin-top: 2rem;
-    font-style: italic;
-    line-height: 1.6;
-  }
-
-  /* CONTACT */
-  #contact { background: var(--bg); border-top: 1px solid var(--border); }
-
-  .contact-layout {
-    display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    gap: 5rem;
-    margin-top: 3rem;
-  }
-
-  .contact-items { display: flex; flex-direction: column; margin-top: 1.5rem; }
-  .contact-item {
-    padding: 1.25rem 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .contact-item:first-child { padding-top: 0; }
-  .contact-item:last-child { border-bottom: none; }
-
-  .contact-key {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent2);
-    margin-bottom: 0.35rem;
-  }
-  .contact-val { font-size: 0.95rem; color: var(--text); font-weight: 400; }
-  .contact-val a {
-    color: inherit;
-    text-decoration: none;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 1px;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .contact-val a:hover { color: var(--accent); border-color: var(--accent); }
-
-  .form-box {
-    background: var(--white);
-    border: 1px solid var(--border);
-    padding: 2.5rem;
-    border-radius: 6px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
-  }
-  .form-head {
-    font-family: 'Instrument Serif', serif;
-    font-size: 1.5rem;
-    color: var(--text);
-    margin-bottom: 0.4rem;
-  }
-  .form-sub {
-    font-size: 0.85rem;
-    color: var(--muted);
-    font-weight: 300;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-  }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .form-group { margin-bottom: 1rem; }
-
-  label {
-    display: block;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0.4rem;
-  }
-
-  input, textarea, select {
-    width: 100%;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 0.7rem 0.9rem;
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 300;
-    border-radius: 3px;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  input::placeholder, textarea::placeholder { color: var(--border); }
-  input:focus, textarea:focus, select:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(26,58,42,0.06);
-  }
-  textarea { resize: vertical; min-height: 110px; }
-  select { appearance: none; cursor: pointer; }
-
-  .submit-btn {
-    margin-top: 0.5rem;
-    width: 100%;
-    padding: 0.9rem 2rem;
-    background: var(--accent);
-    color: #fff;
-    font-family: 'Outfit', sans-serif;
-    font-weight: 600;
-    font-size: 0.875rem;
-    letter-spacing: 0.04em;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
-  }
-  .submit-btn:hover { background: #0f2318; }
-  .submit-btn:active { transform: scale(0.995); }
-
-  /* FOOTER */
-  footer {
-    background: var(--accent);
-    padding: 2.5rem 6vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .footer-logo { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.1rem; color: #fff; }
-  .footer-logo span { color: var(--accent2); }
-  .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
-  .footer-links { display: flex; gap: 2rem; }
-  .footer-links a { text-decoration: none; color: rgba(255,255,255,0.45); font-size: 0.8rem; transition: color 0.2s; }
-  .footer-links a:hover { color: rgba(255,255,255,0.85); }
-
-  /* ANIMATION */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .reveal {
-    opacity: 0;
-    transform: translateY(22px);
-    transition: opacity 0.65s ease, transform 0.65s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  /* RESPONSIVE */
-  @media (max-width: 960px) {
-    .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 100px; padding-bottom: 4rem; }
-    .hero-right { display: none; }
-    .wwd-layout, .why-layout, .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
-    .hiw-header, .sectors-header { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2rem; }
-    .flow-steps { grid-template-columns: 1fr 1fr; }
-    .flow-step:nth-child(2) { border-right: none; }
-    .flow-step:nth-child(3) { border-top: 1px solid var(--border); }
-    .sectors-grid { grid-template-columns: 1fr 1fr; }
-    nav ul { display: none; }
-    .form-row { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 580px) {
-    .flow-steps { grid-template-columns: 1fr; }
-    .sectors-grid { grid-template-columns: 1fr; }
-    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
-    .compare-grid { grid-template-columns: 1fr; }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B2BAdmin | Administrative Solutions for Workforce Needs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { primary: '#1e293b', accent: '#334155' }
+                }
+            }
+        }
+    </script>
+    <style>
+        .fade-up { opacity: 0; transform: translateY(24px); transition: all 0.7s ease-out; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+    </style>
+<base target="_blank">
 </head>
-<body>
+<body class="font-sans text-slate-800 bg-white antialiased">
 
-<nav>
-  <div class="logo">B2B<span>Admin</span></div>
-  <ul>
-    <li><a href="#what-we-do">What We Do</a></li>
-    <li><a href="#how-it-works">How It Works</a></li>
-    <li><a href="#sectors">Sectors</a></li>
-    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
-  </ul>
-</nav>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur border-b border-slate-200">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                    <span class="text-white font-bold text-sm">B2B</span>
+                </div>
+                <span class="text-xl font-semibold text-primary tracking-tight">B2BAdmin</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+                <a href="#about" class="hover:text-primary transition">About</a>
+                <a href="#services" class="hover:text-primary transition">Services</a>
+                <a href="#process" class="hover:text-primary transition">Process</a>
+                <a href="#contact" class="text-primary hover:text-slate-900 transition">Contact</a>
+            </div>
+            <button class="md:hidden text-slate-600" onclick="document.getElementById('mobile').classList.toggle('hidden')">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+        </div>
+        <div id="mobile" class="hidden md:hidden bg-white border-t border-slate-200 px-6 py-4 space-y-3 text-sm">
+            <a href="#about" class="block text-slate-600" onclick="closeMobile()">About</a>
+            <a href="#services" class="block text-slate-600" onclick="closeMobile()">Services</a>
+            <a href="#process" class="block text-slate-600" onclick="closeMobile()">Process</a>
+            <a href="#contact" class="block text-primary" onclick="closeMobile()">Contact</a>
+        </div>
+    </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-glow1"></div>
-  <div class="hero-glow2"></div>
+    <!-- Hero -->
+    <section class="pt-32 pb-20 px-6 bg-slate-50">
+        <div class="max-w-4xl mx-auto text-center fade-up">
+            <h1 class="text-4xl md:text-5xl font-semibold text-primary leading-tight mb-6">
+                Administrative Solutions for Workforce Procurement
+            </h1>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                B2BAdmin connects companies with verified recruitment agencies through structured administrative processes. We do not recruit. We facilitate.
+            </p>
+        </div>
+    </section>
 
-  <div class="hero-left">
-    <div class="hero-tag">Administrative Solutions · B2B</div>
-    <h1>The Administrative<br>Bridge Between<br>Companies &amp; <em>Agencies.</em></h1>
-    <p class="hero-desc">
-      B2BAdmin is not a recruitment firm. We are the administrative structure that sits
-      between your company and the right recruitment partner — managing the process
-      so you don't have to.
-    </p>
-    <div class="hero-note">We connect. Our partners recruit.</div>
-  </div>
+    <!-- About -->
+    <section id="about" class="py-20 px-6">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div class="fade-up">
+                <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80" alt="Business meeting" class="rounded-lg shadow-sm w-full object-cover h-80">
+            </div>
+            <div class="fade-up space-y-5">
+                <h2 class="text-3xl font-semibold text-primary">What We Do</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    Companies need skilled employees. Recruitment agencies have access to talent. B2BAdmin sits between them — handling the administrative coordination, vetting, and process management so both parties can focus on their core operations.
+                </p>
+                <p class="text-slate-600 leading-relaxed">
+                    We maintain a curated network of recruitment agencies across multiple regions and industries. When a company submits a workforce requirement, we identify the appropriate agencies, coordinate the engagement, and oversee the administrative framework until the requirement is fulfilled.
+                </p>
+                <div class="grid grid-cols-2 gap-4 pt-2">
+                    <div class="border-l-2 border-slate-300 pl-4">
+                        <div class="text-2xl font-semibold text-primary">150+</div>
+                        <div class="text-sm text-slate-500">Agency Partners</div>
+                    </div>
+                    <div class="border-l-2 border-slate-300 pl-4">
+                        <div class="text-2xl font-semibold text-primary">45+</div>
+                        <div class="text-sm text-slate-500">Countries Covered</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <div class="hero-right">
-    <div class="hero-visual">
-      <div class="hv-label">How it flows</div>
-      <div class="hv-node">
-        <div class="hv-node-dot"></div>
-        <div>
-          <div class="hv-node-name">Client Company</div>
-          <div class="hv-node-role">Submits requirement</div>
+    <!-- Services -->
+    <section id="services" class="py-20 px-6 bg-slate-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12 fade-up">
+                <h2 class="text-3xl font-semibold text-primary mb-3">Our Services</h2>
+                <p class="text-slate-600">Administrative functions that bridge companies and recruitment agencies.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="fade-up bg-white p-8 rounded-lg border border-slate-200">
+                    <div class="w-10 h-10 bg-slate-100 rounded flex items-center justify-center mb-5">
+                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-primary mb-2">Agency Matching</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        We analyze your workforce requirements and match you with recruitment agencies in our network that specialize in your industry and region.
+                    </p>
+                </div>
+                <div class="fade-up bg-white p-8 rounded-lg border border-slate-200">
+                    <div class="w-10 h-10 bg-slate-100 rounded flex items-center justify-center mb-5">
+                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-primary mb-2">Contract Administration</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        We draft, review, and manage contractual agreements between your company and the recruitment agencies, ensuring terms are clear and enforceable.
+                    </p>
+                </div>
+                <div class="fade-up bg-white p-8 rounded-lg border border-slate-200">
+                    <div class="w-10 h-10 bg-slate-100 rounded flex items-center justify-center mb-5">
+                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-primary mb-2">Process Oversight</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        We monitor the engagement timeline, track deliverables, and ensure both parties adhere to agreed milestones and service levels.
+                    </p>
+                </div>
+                <div class="fade-up bg-white p-8 rounded-lg border border-slate-200">
+                    <div class="w-10 h-10 bg-slate-100 rounded flex items-center justify-center mb-5">
+                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-primary mb-2">Agency Vetting</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        All agencies in our network undergo verification of credentials, past performance review, and compliance checks before engagement.
+                    </p>
+                </div>
+                <div class="fade-up bg-white p-8 rounded-lg border border-slate-200">
+                    <div class="w-10 h-10 bg-slate-100 rounded flex items-center justify-center mb-5">
+                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-primary mb-2">Payment Coordination</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        We handle invoicing structures and payment scheduling between your company and the recruitment agencies to ensure smooth financial transactions.
+                    </p>
+                </div>
+                <div class="fade-up bg-white p-8 rounded-lg border border-slate-200">
+                    <div class="w-10 h-10 bg-slate-100 rounded flex items-center justify-center mb-5">
+                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-primary mb-2">Reporting & Compliance</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Regular status reports on active engagements, along with documentation ensuring regulatory and internal compliance standards are met.
+                    </p>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="hv-connector"></div>
-      <div class="hv-node featured">
-        <div class="hv-node-dot"></div>
-        <div>
-          <div class="hv-node-name">B2BAdmin</div>
-          <div class="hv-node-role">Assesses, structures &amp; routes</div>
-        </div>
-      </div>
-      <div class="hv-connector"></div>
-      <div class="hv-node">
-        <div class="hv-node-dot"></div>
-        <div>
-          <div class="hv-node-name">Recruitment Agency</div>
-          <div class="hv-node-role">Executes the hire</div>
-        </div>
-      </div>
-      <div class="hv-stats">
-        <div class="hv-stat">
-          <div class="hv-stat-num">360°</div>
-          <div class="hv-stat-label">Admin Coverage</div>
-        </div>
-        <div class="hv-stat">
-          <div class="hv-stat-num">B2B</div>
-          <div class="hv-stat-label">Exclusively</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- WHAT WE DO -->
-<section id="what-we-do">
-  <div class="reveal">
-    <div class="section-tag">Our Role</div>
-    <h2 class="section-title">We Don't Recruit.<br>We Make Recruitment Work.</h2>
-  </div>
-  <div class="wwd-layout">
-    <div>
-      <div class="service-card reveal">
-        <div class="service-num">01 — Coordination</div>
-        <div class="service-title">Administrative Management</div>
-        <div class="service-desc">We manage the full administrative process between your company and partner recruitment agencies. Documentation, communication, scheduling, compliance — handled centrally so your teams focus on operations.</div>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-num">02 — Matching</div>
-        <div class="service-title">Agency Routing</div>
-        <div class="service-desc">We identify which of our verified recruitment partners is best suited to your specific profile and need. No marketplaces, no blind searches — we route the right agency directly to your requirement.</div>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-num">03 — Oversight</div>
-        <div class="service-title">Process Governance</div>
-        <div class="service-desc">From initial assessment to agency handover, B2BAdmin sets scope, timelines, and contractual terms. We remain the administrative authority throughout the entire engagement lifecycle.</div>
-      </div>
-    </div>
+    <!-- Process -->
+    <section id="process" class="py-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12 fade-up">
+                <h2 class="text-3xl font-semibold text-primary mb-3">How It Works</h2>
+                <p class="text-slate-600">A clear administrative workflow from requirement to fulfillment.</p>
+            </div>
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="fade-up">
+                    <div class="text-4xl font-light text-slate-300 mb-4">01</div>
+                    <h3 class="font-semibold text-primary mb-2">Requirement Intake</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">Your company submits detailed workforce requirements, including role specifications, volume, timeline, and location.</p>
+                </div>
+                <div class="fade-up">
+                    <div class="text-4xl font-light text-slate-300 mb-4">02</div>
+                    <h3 class="font-semibold text-primary mb-2">Agency Selection</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">We identify and shortlist recruitment agencies from our network that align with your specific needs and geographic scope.</p>
+                </div>
+                <div class="fade-up">
+                    <div class="text-4xl font-light text-slate-300 mb-4">03</div>
+                    <h3 class="font-semibold text-primary mb-2">Engagement Setup</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">We establish the administrative framework — contracts, SLAs, reporting schedules, and payment terms between all parties.</p>
+                </div>
+                <div class="fade-up">
+                    <div class="text-4xl font-light text-slate-300 mb-4">04</div>
+                    <h3 class="font-semibold text-primary mb-2">Oversight & Closure</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">We monitor the engagement, ensure deliverables are met, manage documentation, and close the administrative loop upon fulfillment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="compare-block reveal">
-      <div class="compare-title">Why it matters<br>to your business.</div>
-      <p class="section-body" style="margin-bottom:1.75rem;">Companies dealing directly with multiple agencies face fragmented processes, inconsistent results, and administrative overhead. B2BAdmin eliminates that entirely.</p>
-      <div class="compare-grid">
-        <div class="compare-col bad">
-          <div class="compare-col-head">Without B2BAdmin</div>
-          <div class="compare-col-line">Your team → Agency A</div>
-          <div class="compare-col-line">Your team → Agency B</div>
-          <div class="compare-col-line">Your team → Agency C</div>
-          <div class="compare-verdict">Fragmented. Unmanaged.</div>
-        </div>
-        <div class="compare-col good">
-          <div class="compare-col-head">With B2BAdmin</div>
-          <div class="compare-col-line">Your team → B2BAdmin</div>
-          <div class="compare-col-line">B2BAdmin → Right Agency</div>
-          <div class="compare-col-line">Agency → Results</div>
-          <div class="compare-verdict">Structured. Efficient.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- Contact -->
+    <section id="contact" class="py-20 px-6 bg-slate-50">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
+            <div class="fade-up space-y-6">
+                <div>
+                    <h2 class="text-3xl font-semibold text-primary mb-3">Contact</h2>
+                    <p class="text-slate-600">Submit your workforce requirements or inquire about our administrative services.</p>
+                </div>
+                <div class="space-y-4 pt-4">
+                    <div class="flex items-start gap-4">
+                        <div class="w-8 h-8 bg-white border border-slate-200 rounded flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </div>
+                        <div>
+                            <div class="font-medium text-primary">Email</div>
+                            <div class="text-slate-600 text-sm">admin@pixscrib.com</div>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-8 h-8 bg-white border border-slate-200 rounded flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                        </div>
+                        <div>
+                            <div class="font-medium text-primary">Phone</div>
+                            <div class="text-slate-600 text-sm">+420 737773325</div>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-8 h-8 bg-white border border-slate-200 rounded flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        </div>
+                        <div>
+                            <div class="font-medium text-primary">Office</div>
+                            <div class="text-slate-600 text-sm">Krakovska 12, Prgaue, Czech Republic</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<!-- HOW IT WORKS -->
-<section id="how-it-works">
-  <div class="hiw-header">
-    <div class="reveal">
-      <div class="section-tag">The Process</div>
-      <h2 class="section-title">Four Steps.<br>One Contact.</h2>
-    </div>
-    <div class="reveal">
-      <p class="section-body">From initial briefing to ongoing management — B2BAdmin handles the full administrative lifecycle. Your team has one point of contact throughout.</p>
-    </div>
-  </div>
-  <div class="flow-steps reveal">
-    <div class="flow-step">
-      <div class="flow-num">01</div>
-      <div class="flow-step-title">Initial Briefing</div>
-      <div class="flow-step-desc">Your company submits its requirement to B2BAdmin. We document scope, budget, timeline, and operational context with full precision.</div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-num">02</div>
-      <div class="flow-step-title">Needs Assessment</div>
-      <div class="flow-step-desc">Our team analyses the brief and maps the right recruitment profile — sector, scale, urgency, and compliance all factored in.</div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-num">03</div>
-      <div class="flow-step-title">Agency Connection</div>
-      <div class="flow-step-desc">B2BAdmin introduces the matched partner agency, structures the engagement, and administers the formal handover with defined deliverables.</div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-num">04</div>
-      <div class="flow-step-title">Ongoing Administration</div>
-      <div class="flow-step-desc">Throughout the partnership B2BAdmin remains the administrative authority — managing communications, resolving issues, and tracking outcomes.</div>
-    </div>
-  </div>
-</section>
+            <div class="fade-up bg-white p-8 rounded-lg border border-slate-200">
+                <form id="contactForm" onsubmit="handleSubmit(event)" class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1.5">Company Name</label>
+                        <input type="text" required class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-primary focus:ring-1 focus:ring-primary outline-none text-sm" placeholder="Your company name">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1.5">Contact Name</label>
+                            <input type="text" required class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-primary focus:ring-1 focus:ring-primary outline-none text-sm" placeholder="Full name">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1.5">Email</label>
+                            <input type="email" required class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-primary focus:ring-1 focus:ring-primary outline-none text-sm" placeholder="email@company.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1.5">Service Required</label>
+                        <select class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-primary focus:ring-1 focus:ring-primary outline-none text-sm bg-white">
+                            <option>Agency Matching</option>
+                            <option>Contract Administration</option>
+                            <option>Process Oversight</option>
+                            <option>Full Administrative Package</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1.5">Message</label>
+                        <textarea rows="4" required class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-primary focus:ring-1 focus:ring-primary outline-none text-sm resize-none" placeholder="Describe your workforce requirements or inquiry..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-primary text-white py-3 rounded font-medium hover:bg-slate-800 transition text-sm">
+                        Submit Inquiry
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-<!-- SECTORS -->
-<section id="sectors">
-  <div class="sectors-header">
-    <div class="reveal">
-      <div class="section-tag">Industries</div>
-      <h2 class="section-title">Sectors We<br>Operate In</h2>
-    </div>
-    <div class="reveal">
-      <p class="section-body">B2BAdmin serves businesses across industries that require structured administrative workforce coordination — from fast-paced service sectors to large-scale industrial operations.</p>
-    </div>
-  </div>
-  <div class="sectors-grid">
-    <div class="sector-card reveal">
-      <span class="sector-icon">🍽️</span>
-      <div class="sector-name">Gastronomy &amp; Food Services</div>
-      <div class="sector-note">Administrative coordination for restaurant groups, catering companies, food production, and culinary operations requiring workforce partnerships.</div>
-    </div>
-    <div class="sector-card reveal">
-      <span class="sector-icon">🏨</span>
-      <div class="sector-name">Hospitality</div>
-      <div class="sector-note">Structured agency connections for hotels, resorts, event management, and service businesses with dynamic and seasonal staffing requirements.</div>
-    </div>
-    <div class="sector-card reveal">
-      <span class="sector-icon">🏗️</span>
-      <div class="sector-name">Construction</div>
-      <div class="sector-note">High-volume workforce coordination for construction firms, infrastructure projects, and real estate development requiring scalable staffing solutions.</div>
-    </div>
-    <div class="sector-card reveal">
-      <span class="sector-icon">🚚</span>
-      <div class="sector-name">Logistics &amp; Operations</div>
-      <div class="sector-note">Operational staffing coordination managed through a single administrative contact for logistics networks and supply chain businesses.</div>
-    </div>
-    <div class="sector-card reveal">
-      <span class="sector-icon">🏭</span>
-      <div class="sector-name">Manufacturing &amp; Industry</div>
-      <div class="sector-note">Structured solutions for industrial companies requiring scalable agency partnerships for production and technical workforce needs.</div>
-    </div>
-    <div class="sector-card reveal">
-      <span class="sector-icon">💼</span>
-      <div class="sector-name">Professional Services</div>
-      <div class="sector-note">Executive, legal, and management role coordination with specialist boutique agencies matched precisely to your business profile.</div>
-    </div>
-  </div>
-</section>
+    <!-- Footer -->
+    <footer class="bg-primary text-slate-300 py-12 px-6">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 text-sm">
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-7 h-7 bg-white/10 rounded flex items-center justify-center">
+                        <span class="text-white font-bold text-xs">B2B</span>
+                    </div>
+                    <span class="text-white font-semibold">B2BAdmin</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed">
+                    Administrative solutions connecting companies with recruitment agencies worldwide.
+                </p>
+            </div>
+            <div>
+                <div class="text-white font-medium mb-3">Services</div>
+                <ul class="space-y-2 text-slate-400">
+                    <li>Agency Matching</li>
+                    <li>Contract Administration</li>
+                    <li>Process Oversight</li>
+                    <li>Agency Vetting</li>
+                </ul>
+            </div>
+            <div>
+                <div class="text-white font-medium mb-3">Legal</div>
+                <ul class="space-y-2 text-slate-400">
+                    <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto mt-10 pt-6 border-t border-white/10 text-xs text-slate-500">
+            © 2024 B2BAdmin. All rights reserved.
+        </div>
+    </footer>
 
-<!-- WHY US -->
-<section id="why-us">
-  <div class="why-layout">
-    <div>
-      <div class="section-tag reveal">Our Value</div>
-      <h2 class="section-title reveal">Why Companies<br>Work With Us</h2>
-      <ul class="why-list">
-        <li class="reveal">
-          <div class="why-icon">→</div>
-          <div class="why-text">
-            <strong>Single Point of Accountability</strong>
-            <span>One contact manages all administrative coordination — no fragmented agency relationships on your end.</span>
-          </div>
-        </li>
-        <li class="reveal">
-          <div class="why-icon">→</div>
-          <div class="why-text">
-            <strong>Verified Partner Network</strong>
-            <span>We connect you only to recruitment agencies within our vetted partner ecosystem — no blind marketplace searches.</span>
-          </div>
-        </li>
-        <li class="reveal">
-          <div class="why-icon">→</div>
-          <div class="why-text">
-            <strong>Zero Administrative Overhead for You</strong>
-            <span>We absorb the full administrative burden so your HR and operations teams stay focused on core business.</span>
-          </div>
-        </li>
-        <li class="reveal">
-          <div class="why-icon">→</div>
-          <div class="why-text">
-            <strong>Contractual Clarity</strong>
-            <span>Every engagement is structured with defined scope, timelines, and terms before any recruitment activity begins.</span>
-          </div>
-        </li>
-      </ul>
-    </div>
-
-    <div class="reveal">
-      <div class="diagram-wrap">
-        <div class="diag-title">The B2BAdmin Model</div>
-        <div class="diag-node">
-          <div class="diag-node-name">Client Company</div>
-          <div class="diag-node-sub">Submits administrative or staffing requirement</div>
+    <!-- Modal -->
+    <div id="modal" class="hidden fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg p-8 max-w-sm w-full text-center">
+            <div class="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-primary mb-2">Inquiry Submitted</h3>
+            <p class="text-slate-600 text-sm mb-6">We will review your requirements and respond within two business days.</p>
+            <button onclick="closeModal()" class="bg-primary text-white px-6 py-2 rounded text-sm hover:bg-slate-800 transition">Close</button>
         </div>
-        <div class="diag-line"></div>
-        <div class="diag-node center">
-          <div class="diag-node-name">B2BAdmin</div>
-          <div class="diag-node-sub">Assessment · Routing · Administration · Oversight</div>
-        </div>
-        <div class="diag-line"></div>
-        <div class="diag-node">
-          <div class="diag-node-name">Recruitment Agency Partner</div>
-          <div class="diag-node-sub">Executes the hire under structured mandate</div>
-        </div>
-        <div class="diag-caption">B2BAdmin is not the recruiter.<br>We are the structure around it.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-layout">
-    <div>
-      <div class="section-tag reveal">Contact</div>
-      <h2 class="section-title reveal">Let's Discuss<br>Your Requirements.</h2>
-      <p class="section-body reveal" style="margin-bottom:2rem;">B2BAdmin works exclusively with businesses. If your company needs structured administrative support in connecting to the right recruitment partners, reach out directly.</p>
-      <div class="contact-items reveal">
-        <div class="contact-item">
-          <div class="contact-key">General Enquiries</div>
-          <div class="contact-val"><a href="mailto:admin@b2badmin.com">admin@pixscrib.com</a></div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-key">For Recruitment Agencies</div>
-          <div class="contact-val"><a href="mailto:admin@pixscrib.com">admin@pixscrib.com</a></div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-key">Business Hours</div>
-          <div class="contact-val">Monday – Friday, 9:00 – 18:00</div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-key">Engagements</div>
-          <div class="contact-val">B2B Only —
-Krakovska 12, Prague, Czechia </div>
-        </div>
-      </div>
     </div>
 
-    <div class="reveal">
-      <div class="form-box">
-        <div class="form-head">Send an Enquiry</div>
-        <div class="form-sub">For companies and agencies only. We respond within one business day.</div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Company Name</label>
-            <input type="text" placeholder="Acme Corp">
-          </div>
-          <div class="form-group">
-            <label>Your Name</label>
-            <input type="text" placeholder="John Smith">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Work Email</label>
-            <input type="email" placeholder="john@company.com">
-          </div>
-          <div class="form-group">
-            <label>You Are</label>
-            <select>
-              <option value="">Select…</option>
-              <option>A Company seeking solutions</option>
-              <option>A Recruitment Agency</option>
-              <option>An Administrative Partner</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Nature of Enquiry</label>
-          <textarea placeholder="Briefly describe what your company needs and the context of the requirement…"></textarea>
-        </div>
-        <button class="submit-btn">Submit Enquiry</button>
-      </div>
-    </div>
-  </div>
-</section>
+    <script>
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
 
-<footer>
-  <div class="footer-logo">B2B<span>Admin</span></div>
-  <div class="footer-copy">© 2026 B2BAdmin. All rights reserved.</div>
-  <div class="footer-links">
-    <a href="#">Privacy Policy</a>
-    <a href="#">Terms</a>
-  </div>
-</footer>
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-<script>
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), 60);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.08 });
-  reveals.forEach(el => observer.observe(el));
+        // Mobile menu
+        function closeMobile() {
+            document.getElementById('mobile').classList.add('hidden');
+        }
 
-  document.querySelectorAll('.sector-card, .service-card, .flow-step').forEach((el, i) => {
-    el.style.transitionDelay = `${i * 0.06}s`;
-  });
-</script>
+        // Form
+        function handleSubmit(e) {
+            e.preventDefault();
+            document.getElementById('modal').classList.remove('hidden');
+            document.getElementById('contactForm').reset();
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        // Close modal on backdrop click
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeModal();
+        });
+    </script>
 </body>
 </html>
