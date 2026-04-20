@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B2BAdmin.consulting | Administrative Documentation for International Workforce</title>
+    <title>B2BAdmin consulting | Administrative Documentation for International Workforce</title>
     <style>
         * {
             margin: 0;
@@ -238,7 +238,7 @@
     <!-- Header -->
     <header>
         <div class="container">
-            <h1>B2BAdmin.consulting</h1>
+            <h1>B2BAdmin consulting</h1>
             <p class="tagline">Administrative Documentation for International Workforce</p>
             <p class="disclaimer">We do not recruit. We do not match. We do not mediate employment.<br>We handle documents.</p>
         </div>
