@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B2BAdmin consulting | Administrative Documentation for International Workforce</title>
+    <title>B2BAdmin.consulting | Administrative Documentation for International Workforce</title>
     <style>
         * {
             margin: 0;
@@ -22,6 +22,57 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+        
+        /* Language Selector */
+        .lang-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 10px;
+        }
+        
+        .lang-selector select {
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1E3A5F;
+            color: white;
+            padding: 20px;
+            z-index: 999;
+            display: none;
+        }
+        
+        .cookie-banner.show {
+            display: block;
+        }
+        
+        .cookie-banner p {
+            display: inline;
+            margin-right: 20px;
+        }
+        
+        .cookie-banner button {
+            background: #E76F51;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
         }
         
         /* Header */
@@ -171,6 +222,25 @@
             margin-right: 10px;
         }
         
+        /* GDPR Section */
+        .gdpr-section {
+            background: #f0f4f8;
+        }
+        
+        .gdpr-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .gdpr-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #1E3A5F;
+        }
+        
         /* Contact */
         .contact-info {
             max-width: 600px;
@@ -230,28 +300,55 @@
             .industries-table {
                 font-size: 0.9em;
             }
+            
+            .lang-selector {
+                top: 10px;
+                right: 10px;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- Language Selector -->
+    <div class="lang-selector">
+        <select id="languageSelect" onchange="changeLanguage(this.value)">
+            <option value="en">🇬🇧 English</option>
+            <option value="cz">🇨🇿 Čeština</option>
+            <option value="ro">🇷🇴 Română</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="ar">🇸🇦 العربية</option>
+            <option value="th">🇹🇭 ไทย</option>
+            <option value="fr">🇫🇷 Français</option>
+        </select>
+    </div>
+
+    <!-- Cookie Banner -->
+    <div id="cookieBanner" class="cookie-banner">
+        <div class="container">
+            <span id="cookieText">We use cookies for language detection and analytics. By continuing, you agree to our Privacy Policy and GDPR compliance.</span>
+            <button onclick="acceptCookies()">Accept</button>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container">
             <h1>B2BAdmin.consulting</h1>
-            <p class="tagline">Administrative Documentation for International Workforce</p>
-            <p class="disclaimer">We do not recruit. We do not match. We do not mediate employment.<br>We handle documents.</p>
+            <p class="tagline" data-i18n="tagline">Administrative Documentation for International Workforce</p>
+            <p class="disclaimer" data-i18n="disclaimer">We do not recruit. We do not match. We do not mediate employment.<br>We handle documents.</p>
         </div>
     </header>
 
     <!-- What We Do -->
     <section id="what-we-do">
         <div class="container">
-            <h2>What We Do</h2>
-            <p class="intro-text">
+            <h2 data-i18n="whatWeDo">What We Do</h2>
+            <p class="intro-text" data-i18n="intro1">
                 Companies need proper documentation to employ international workers legally. B2BAdmin prepares, reviews, and files the required paperwork — employment contracts, work permit applications, compliance reports, and regulatory filings.
             </p>
-            <p class="intro-text">
+            <p class="intro-text" data-i18n="intro2">
                 We do not find employees. We do not find employers. We do not connect parties. We ensure the documents between existing parties are correct, complete, and compliant.
             </p>
         </div>
@@ -260,38 +357,38 @@
     <!-- Services -->
     <section id="services">
         <div class="container">
-            <h2>Our Services</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 20px;">Administrative documentation for companies with international workforce needs.</p>
+            <h2 data-i18n="ourServices">Our Services</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 20px;" data-i18n="servicesSubtitle">Administrative documentation for companies with international workforce needs.</p>
             
             <div class="services-grid">
                 <div class="service-card">
-                    <h3>Document Preparation</h3>
-                    <p>Drafting employment contracts, work permit applications, and regulatory filings according to Romanian, Czech, and Indian legal requirements.</p>
+                    <h3 data-i18n="docPrep">Document Preparation</h3>
+                    <p data-i18n="docPrepDesc">Drafting employment contracts, work permit applications, and regulatory filings according to EU, local, and international legal requirements.</p>
                 </div>
                 
                 <div class="service-card">
-                    <h3>Contract Review</h3>
-                    <p>Reviewing existing agreements between companies and recruitment agencies for administrative completeness and regulatory compliance.</p>
+                    <h3 data-i18n="contractReview">Contract Review</h3>
+                    <p data-i18n="contractReviewDesc">Reviewing existing agreements between companies and recruitment agencies for administrative completeness and regulatory compliance.</p>
                 </div>
                 
                 <div class="service-card">
-                    <h3>Compliance Filing</h3>
-                    <p>Submitting required documentation to immigration authorities, labor inspectorates, and tax offices on behalf of our clients.</p>
+                    <h3 data-i18n="complianceFiling">Compliance Filing</h3>
+                    <p data-i18n="complianceFilingDesc">Submitting required documentation to immigration authorities, labor inspectorates, and tax offices on behalf of our clients.</p>
                 </div>
                 
                 <div class="service-card">
-                    <h3>Deadline Tracking</h3>
-                    <p>Monitoring document expiration dates, renewal deadlines, and regulatory filing schedules to prevent penalties.</p>
+                    <h3 data-i18n="deadlineTracking">Deadline Tracking</h3>
+                    <p data-i18n="deadlineTrackingDesc">Monitoring document expiration dates, renewal deadlines, and regulatory filing schedules to prevent penalties.</p>
                 </div>
                 
                 <div class="service-card">
-                    <h3>Translation & Notarization</h3>
-                    <p>Certified translations and notarization of documents between Romanian, Czech, English, and Hindi.</p>
+                    <h3 data-i18n="translation">Translation & Notarization</h3>
+                    <p data-i18n="translationDesc">Certified translations and notarization of documents in multiple languages including EU and worldwide standards.</p>
                 </div>
                 
                 <div class="service-card">
-                    <h3>Archive Management</h3>
-                    <p>Organized digital and physical document storage for audit readiness and legal reference.</p>
+                    <h3 data-i18n="archive">Archive Management</h3>
+                    <p data-i18n="archiveDesc">Organized digital and physical document storage for audit readiness and legal reference.</p>
                 </div>
             </div>
         </div>
@@ -300,38 +397,38 @@
     <!-- How It Works -->
     <section id="how-it-works">
         <div class="container">
-            <h2>How It Works</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 20px;">Administrative workflow from document request to delivery.</p>
+            <h2 data-i18n="howItWorks">How It Works</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 20px;" data-i18n="processSubtitle">Administrative workflow from document request to delivery.</p>
             
             <div class="process-steps">
                 <div class="step">
                     <span class="step-number">01</span>
-                    <h3>Document Request</h3>
-                    <p>Your company submits the paperwork needed — contracts, permits, compliance forms, or translations.</p>
+                    <h3 data-i18n="step1">Document Request</h3>
+                    <p data-i18n="step1Desc">Your company submits the paperwork needed — contracts, permits, compliance forms, or translations.</p>
                 </div>
                 
                 <div class="step">
                     <span class="step-number">02</span>
-                    <h3>Preparation</h3>
-                    <p>We draft, review, or translate the documents according to applicable legal standards.</p>
+                    <h3 data-i18n="step2">Preparation</h3>
+                    <p data-i18n="step2Desc">We draft, review, or translate the documents according to applicable legal standards.</p>
                 </div>
                 
                 <div class="step">
                     <span class="step-number">03</span>
-                    <h3>Verification</h3>
-                    <p>We check completeness, accuracy, and regulatory compliance before submission.</p>
+                    <h3 data-i18n="step3">Verification</h3>
+                    <p data-i18n="step3Desc">We check completeness, accuracy, and regulatory compliance before submission.</p>
                 </div>
                 
                 <div class="step">
                     <span class="step-number">04</span>
-                    <h3>Filing & Delivery</h3>
-                    <p>We submit documents to relevant authorities or deliver completed paperwork to your legal team.</p>
+                    <h3 data-i18n="step4">Filing & Delivery</h3>
+                    <p data-i18n="step4Desc">We submit documents to relevant authorities or deliver completed paperwork to your legal team.</p>
                 </div>
                 
                 <div class="step">
                     <span class="step-number">05</span>
-                    <h3>Archive</h3>
-                    <p>We maintain organized records for future reference, audits, or renewals.</p>
+                    <h3 data-i18n="step5">Archive</h3>
+                    <p data-i18n="step5Desc">We maintain organized records for future reference, audits, or renewals.</p>
                 </div>
             </div>
         </div>
@@ -340,60 +437,106 @@
     <!-- Industries -->
     <section id="industries">
         <div class="container">
-            <h2>Industries We Support</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 20px;">Administrative documentation for companies across sectors.</p>
+            <h2 data-i18n="industries">Industries We Support</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 20px;" data-i18n="industriesSubtitle">Administrative documentation for companies across sectors worldwide.</p>
             
             <table class="industries-table">
                 <thead>
                     <tr>
-                        <th>Sector</th>
-                        <th>Documentation Support</th>
+                        <th data-i18n="sector">Sector</th>
+                        <th data-i18n="documentation">Documentation Support</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><span class="industry-icon">🍽️</span> <strong>Gastronomy & Food Services</strong></td>
-                        <td>Employment contracts, health compliance certificates, work permits for kitchen and service staff</td>
+                        <td><span class="industry-icon">🍽️</span> <strong data-i18n="gastronomy">Gastronomy & Food Services</strong></td>
+                        <td data-i18n="gastronomyDesc">Employment contracts, health compliance certificates, work permits for kitchen and service staff</td>
                     </tr>
                     <tr>
-                        <td><span class="industry-icon">🏨</span> <strong>Hospitality</strong></td>
-                        <td>Seasonal work permits, hotel staff contracts, tourism board registrations</td>
+                        <td><span class="industry-icon">🏨</span> <strong data-i18n="hospitality">Hospitality</strong></td>
+                        <td data-i18n="hospitalityDesc">Seasonal work permits, hotel staff contracts, tourism board registrations</td>
                     </tr>
                     <tr>
-                        <td><span class="industry-icon">🏗️</span> <strong>Construction</strong></td>
-                        <td>Work authorization for foreign workers, safety compliance documentation, contractor agreements</td>
+                        <td><span class="industry-icon">🏗️</span> <strong data-i18n="construction">Construction</strong></td>
+                        <td data-i18n="constructionDesc">Work authorization for foreign workers, safety compliance documentation, contractor agreements</td>
                     </tr>
                     <tr>
-                        <td><span class="industry-icon">🚚</span> <strong>Logistics & Operations</strong></td>
-                        <td>Driver certification, transport permits, cross-border employment paperwork</td>
+                        <td><span class="industry-icon">🚚</span> <strong data-i18n="logistics">Logistics & Operations</strong></td>
+                        <td data-i18n="logisticsDesc">Driver certification, transport permits, cross-border employment paperwork</td>
                     </tr>
                     <tr>
-                        <td><span class="industry-icon">🏭</span> <strong>Manufacturing & Industry</strong></td>
-                        <td>Factory worker contracts, technical qualification verification, industrial safety filings</td>
+                        <td><span class="industry-icon">🏭</span> <strong data-i18n="manufacturing">Manufacturing & Industry</strong></td>
+                        <td data-i18n="manufacturingDesc">Factory worker contracts, technical qualification verification, industrial safety filings</td>
                     </tr>
                     <tr>
-                        <td><span class="industry-icon">💼</span> <strong>Professional Services</strong></td>
-                        <td>Executive employment agreements, legal compliance documentation, management contracts</td>
+                        <td><span class="industry-icon">💼</span> <strong data-i18n="professional">Professional Services</strong></td>
+                        <td data-i18n="professionalDesc">Executive employment agreements, legal compliance documentation, management contracts</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </section>
 
+    <!-- GDPR & EU Compliance -->
+    <section id="gdpr" class="gdpr-section">
+        <div class="container">
+            <h2 data-i18n="gdprTitle">GDPR & EU Compliance</h2>
+            <p class="intro-text" data-i18n="gdprIntro">
+                As a Czech company operating within the European Union, we adhere to the highest standards of data protection and regulatory compliance.
+            </p>
+            
+            <div class="gdpr-grid">
+                <div class="gdpr-item">
+                    <h3 data-i18n="gdpr1">GDPR Compliance</h3>
+                    <p data-i18n="gdpr1Desc">Full compliance with EU Regulation 2016/679. Your data is processed lawfully, fairly, and transparently.</p>
+                </div>
+                
+                <div class="gdpr-item">
+                    <h3 data-i18n="gdpr2">Data Minimization</h3>
+                    <p data-i18n="gdpr2Desc">We collect only necessary data for document processing. No unnecessary personal information is stored.</p>
+                </div>
+                
+                <div class="gdpr-item">
+                    <h3 data-i18n="gdpr3">Right to Erasure</h3>
+                    <p data-i18n="gdpr3Desc">You can request complete deletion of your data at any time. We maintain no hidden copies.</p>
+                </div>
+                
+                <div class="gdpr-item">
+                    <h3 data-i18n="gdpr4">Cross-Border Transfers</h3>
+                    <p data-i18n="gdpr4Desc">All international data transfers comply with EU Standard Contractual Clauses and adequacy decisions.</p>
+                </div>
+                
+                <div class="gdpr-item">
+                    <h3 data-i18n="gdpr5">EU AI Act</h3>
+                    <p data-i18n="gdpr5Desc">Our automated systems comply with the EU Artificial Intelligence Act requirements for transparency.</p>
+                </div>
+                
+                <div class="gdpr-item">
+                    <h3 data-i18n="gdpr6">eIDAS Regulation</h3>
+                    <p data-i18n="gdpr6Desc">Electronic signatures and document authentication meet EU eIDAS standards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact -->
     <section id="contact">
         <div class="container">
-            <h2>Contact</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 30px;">Submit your document requirements or inquire about our administrative services.</p>
+            <h2 data-i18n="contact">Contact</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;" data-i18n="contactSubtitle">Submit your document requirements or inquire about our administrative services.</p>
             
             <div class="contact-info">
-                <p><strong>Office</strong></p>
+                <p><strong data-i18n="office">Office</strong></p>
                 <p>Krakovská 12</p>
                 <p>Praha 1, 110 00</p>
-                <p>Czech Republic</p>
+                <p data-i18n="czechRepublic">Czech Republic</p>
+                <p data-i18n="eu">European Union</p>
                 <br>
-                <p><strong>Email:</strong> cryonix.lab.bd@gmail.com </p>
-                <p><strong>Phone:</strong> +420 737773325 </p>
+                <p><strong>Email:</strong> info@b2badmin.consulting</p>
+                <p><strong data-i18n="phone">Phone:</strong> +420 [your number]</p>
+                <p><strong>IČO:</strong> [your IČO]</p>
+                <p><strong>DIČ:</strong> [your DIČ]</p>
+                <p><strong>VAT ID:</strong> [your VAT ID]</p>
             </div>
         </div>
     </section>
@@ -401,16 +544,23 @@
     <!-- Legal Notice -->
     <section class="legal-notice">
         <div class="container">
-            <h3>Legal Notice</h3>
-            <p>
-                B2BAdmin s.r.o. provides administrative and documentation services only. We are not a licensed employment agency, recruitment firm, or staffing provider under Romanian Law No. 156/2000 on the operation of private employment agencies, Czech Act No. 435/2004 on employment, or any equivalent legislation in jurisdictions where we operate.
+            <h3 data-i18n="legalNotice">Legal Notice</h3>
+            <p data-i18n="legal1">
+                B2BAdmin s.r.o. provides administrative and documentation services only. We are not a licensed employment agency, recruitment firm, or staffing provider under:
             </p>
             <br>
             <p>
+                • Romanian Law No. 156/2000 on the operation of private employment agencies<br>
+                • Czech Act No. 435/2004 on employment<br>
+                • EU Directive 2008/104/EC on temporary agency work<br>
+                • Any equivalent legislation in jurisdictions where we operate
+            </p>
+            <br>
+            <p data-i18n="legal2">
                 We do not engage in worker placement, job matching, employment mediation, or recruitment activities. All services are strictly limited to document preparation, compliance filing, translation, and administrative coordination between independently contracting parties.
             </p>
             <br>
-            <p>
+            <p data-i18n="legal3">
                 Clients are solely responsible for their direct employment relationships and compliance with all applicable labor laws.
             </p>
         </div>
@@ -419,9 +569,480 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2026 B2BAdmin s.r.o. All rights reserved. | Administrative documentation services only.</p>
+            <p>&copy; 2026 B2BAdmin s.r.o. All rights reserved. | <span data-i18n="footerText">Administrative documentation services only. EU GDPR compliant.</span></p>
         </div>
     </footer>
 
-</body>
-</html>
+    <script>
+        // Translations
+        const translations = {
+            en: {
+                tagline: "Administrative Documentation for International Workforce",
+                disclaimer: "We do not recruit. We do not match. We do not mediate employment.<br>We handle documents.",
+                whatWeDo: "What We Do",
+                intro1: "Companies need proper documentation to employ international workers legally. B2BAdmin prepares, reviews, and files the required paperwork — employment contracts, work permit applications, compliance reports, and regulatory filings.",
+                intro2: "We do not find employees. We do not find employers. We do not connect parties. We ensure the documents between existing parties are correct, complete, and compliant.",
+                ourServices: "Our Services",
+                servicesSubtitle: "Administrative documentation for companies with international workforce needs.",
+                docPrep: "Document Preparation",
+                docPrepDesc: "Drafting employment contracts, work permit applications, and regulatory filings according to EU, local, and international legal requirements.",
+                contractReview: "Contract Review",
+                contractReviewDesc: "Reviewing existing agreements between companies and recruitment agencies for administrative completeness and regulatory compliance.",
+                complianceFiling: "Compliance Filing",
+                complianceFilingDesc: "Submitting required documentation to immigration authorities, labor inspectorates, and tax offices on behalf of our clients.",
+                deadlineTracking: "Deadline Tracking",
+                deadlineTrackingDesc: "Monitoring document expiration dates, renewal deadlines, and regulatory filing schedules to prevent penalties.",
+                translation: "Translation & Notarization",
+                translationDesc: "Certified translations and notarization of documents in multiple languages including EU and worldwide standards.",
+                archive: "Archive Management",
+                archiveDesc: "Organized digital and physical document storage for audit readiness and legal reference.",
+                howItWorks: "How It Works",
+                processSubtitle: "Administrative workflow from document request to delivery.",
+                step1: "Document Request",
+                step1Desc: "Your company submits the paperwork needed — contracts, permits, compliance forms, or translations.",
+                step2: "Preparation",
+                step2Desc: "We draft, review, or translate the documents according to applicable legal standards.",
+                step3: "Verification",
+                step3Desc: "We check completeness, accuracy, and regulatory compliance before submission.",
+                step4: "Filing & Delivery",
+                step4Desc: "We submit documents to relevant authorities or deliver completed paperwork to your legal team.",
+                step5: "Archive",
+                step5Desc: "We maintain organized records for future reference, audits, or renewals.",
+                industries: "Industries We Support",
+                industriesSubtitle: "Administrative documentation for companies across sectors worldwide.",
+                sector: "Sector",
+                documentation: "Documentation Support",
+                gastronomy: "Gastronomy & Food Services",
+                gastronomyDesc: "Employment contracts, health compliance certificates, work permits for kitchen and service staff",
+                hospitality: "Hospitality",
+                hospitalityDesc: "Seasonal work permits, hotel staff contracts, tourism board registrations",
+                construction: "Construction",
+                constructionDesc: "Work authorization for foreign workers, safety compliance documentation, contractor agreements",
+                logistics: "Logistics & Operations",
+                logisticsDesc: "Driver certification, transport permits, cross-border employment paperwork",
+                manufacturing: "Manufacturing & Industry",
+                manufacturingDesc: "Factory worker contracts, technical qualification verification, industrial safety filings",
+                professional: "Professional Services",
+                professionalDesc: "Executive employment agreements, legal compliance documentation, management contracts",
+                gdprTitle: "GDPR & EU Compliance",
+                gdprIntro: "As a Czech company operating within the European Union, we adhere to the highest standards of data protection and regulatory compliance.",
+                gdpr1: "GDPR Compliance",
+                gdpr1Desc: "Full compliance with EU Regulation 2016/679. Your data is processed lawfully, fairly, and transparently.",
+                gdpr2: "Data Minimization",
+                gdpr2Desc: "We collect only necessary data for document processing. No unnecessary personal information is stored.",
+                gdpr3: "Right to Erasure",
+                gdpr3Desc: "You can request complete deletion of your data at any time. We maintain no hidden copies.",
+                gdpr4: "Cross-Border Transfers",
+                gdpr4Desc: "All international data transfers comply with EU Standard Contractual Clauses and adequacy decisions.",
+                gdpr5: "EU AI Act",
+                gdpr5Desc: "Our automated systems comply with the EU Artificial Intelligence Act requirements for transparency.",
+                gdpr6: "eIDAS Regulation",
+                gdpr6Desc: "Electronic signatures and document authentication meet EU eIDAS standards.",
+                contact: "Contact",
+                contactSubtitle: "Submit your document requirements or inquire about our administrative services.",
+                office: "Office",
+                czechRepublic: "Czech Republic",
+                eu: "European Union",
+                phone: "Phone",
+                legalNotice: "Legal Notice",
+                legal1: "B2BAdmin s.r.o. provides administrative and documentation services only. We are not a licensed employment agency, recruitment firm, or staffing provider under:",
+                legal2: "We do not engage in worker placement, job matching, employment mediation, or recruitment activities. All services are strictly limited to document preparation, compliance filing, translation, and administrative coordination between independently contracting parties.",
+                legal3: "Clients are solely responsible for their direct employment relationships and compliance with all applicable labor laws.",
+                footerText: "Administrative documentation services only. EU GDPR compliant.",
+                cookieText: "We use cookies for language detection and analytics. By continuing, you agree to our Privacy Policy and GDPR compliance."
+            },
+            cz: {
+                tagline: "Administrativní dokumentace pro mezinárodní pracovní síly",
+                disclaimer: "Nerekrutujeme. Nesdružujeme. Nezprostředkováváme zaměstnání.<br>Zpracováváme dokumenty.",
+                whatWeDo: "Co děláme",
+                intro1: "Firmy potřebují řádnou dokumentaci pro legální zaměstnávání mezinárodních pracovníků. B2BAdmin připravuje, kontroluje a podává potřebné dokumenty — pracovní smlouvy, žádosti o pracovní povolení, compliance zprávy a regulační podání.",
+                intro2: "Nehledáme zaměstnance. Nehledáme zaměstnavatele. Nespojujeme strany. Zajišťujeme, aby dokumenty mezi existujícími stranami byly správné, úplné a v souladu s předpisy.",
+                ourServices: "Naše služby",
+                servicesSubtitle: "Administrativní dokumentace pro firmy s mezinárodními pracovními potřebami.",
+                docPrep: "Příprava dokumentů",
+                docPrepDesc: "Zpracování pracovních smluv, žádostí o pracovní povolení a regulačních podání podle EU, místních a mezinárodních právních požadavků.",
+                contractReview: "Kontrola smluv",
+                contractReviewDesc: "Kontrola stávajících dohod mezi firmami a personálními agenturami z hlediska administrativní úplnosti a regulačního souladu.",
+                complianceFiling: "Compliance podání",
+                complianceFilingDesc: "Podávání požadované dokumentace imigračním úřadům, inspektorátům práce a daňovým úřadům jménem našich klientů.",
+                deadlineTracking: "Sledování termínů",
+                deadlineTrackingDesc: "Monitorování data vypršení platnosti dokumentů, termínů obnovení a harmonogramů regulačních podání k předcházení pokutám.",
+                translation: "Překlady a ověření",
+                translationDesc: "Úřední překlady a ověření dokumentů ve více jazycích včetně standardů EU a celosvětových norem.",
+                archive: "Správa archivu",
+                archiveDesc: "Organizované digitální a fyzické uchovávání dokumentů pro připravenost na audit a právní reference.",
+                howItWorks: "Jak to funguje",
+                processSubtitle: "Administrativní postup od žádosti o dokument do doručení.",
+                step1: "Žádost o dokument",
+                step1Desc: "Vaše firma předloží potřebnou dokumentaci — smlouvy, povolení, compliance formuláře nebo překlady.",
+                step2: "Příprava",
+                step2Desc: "Zpracujeme, zkontrolujeme nebo přeložíme dokumenty podle platných právních standardů.",
+                step3: "Ověření",
+                step3Desc: "Kontrolujeme úplnost, přesnost a regulační soulad před podáním.",
+                step4: "Podání a doručení",
+                step4Desc: "Podáváme dokumenty příslušným úřadům nebo doručujeme dokončenou dokumentaci vašemu právnímu týmu.",
+                step5: "Archivace",
+                step5Desc: "Udržujeme uspořádané záznamy pro budoucí reference, audity nebo obnovení.",
+                industries: "Odvětví, která podporujeme",
+                industriesSubtitle: "Administrativní dokumentace pro firmy napříč odvětvími po celém světě.",
+                sector: "Odvětví",
+                documentation: "Dokumentační podpora",
+                gastronomy: "Gastronomie a potravinářství",
+                gastronomyDesc: "Pracovní smlouvy, certifikáty hygienické způsobilosti, pracovní povolení pro kuchyňský a servisní personál",
+                hospitality: "Hotelnictví",
+                hospitalityDesc: "Sezónní pracovní povolení, smlouvy hotelového personálu, registrace u turistického úřadu",
+                construction: "Stavebnictví",
+                constructionDesc: "Pracovní povolení pro zahraniční dělníky, dokumentace bezpečnostního souladu, smlouvy s dodavateli",
+                logistics: "Logistika a operace",
+                logisticsDesc: "Řidičské průkazy, dopravní povolení, přeshraniční pracovní dokumentace",
+                manufacturing: "Výroba a průmysl",
+                manufacturingDesc: "Smlouvy továrních dělníků, ověření technické kvalifikace, průmyslová bezpečnostní podání",
+                professional: "Profesní služby",
+                professionalDesc: "Manažerské pracovní smlouvy, právní compliance dokumentace, manažerské smlouvy",
+                gdprTitle: "GDPR a EU compliance",
+                gdprIntro: "Jako česká firma působící v Evropské unii dodržujeme nejvyšší standardy ochrany dat a regulačního souladu.",
+                gdpr1: "GDPR compliance",
+                gdpr1Desc: "Plný soulad s nařízením EU 2016/679. Vaše data jsou zpracovávána zákonně, spravedlivě a transparentně.",
+                gdpr2: "Minimalizace dat",
+                gdpr2Desc: "Sbíráme pouze nezbytná data pro zpracování dokumentů. Neukládáme žádné zbytečné osobní údaje.",
+                gdpr3: "Právo na výmaz",
+                gdpr3Desc: "Kdykoliv můžete požádat o úplné smazání svých dat. Neuchováváme žádné skryté kopie.",
+                gdpr4: "Přeshraniční přenosy",
+                gdpr4Desc: "Všechny mezinárodní přenosy dat jsou v souladu se standardními smluvními doložkami EU a rozhodnutími o přiměřenosti.",
+                gdpr5: "EU AI Act",
+                gdpr5Desc: "Naše automatizované systémy jsou v souladu s požadavky EU na transparentnost umělé inteligence.",
+                gdpr6: "Nařízení eIDAS",
+                gdpr6Desc: "Elektronické podpisy a autentizace dokumentů splňují standardy EU eIDAS.",
+                contact: "Kontakt",
+                contactSubtitle: "Předložte své požadavky na dokumentaci nebo se informujte o našich administrativních službách.",
+                office: "Sídlo",
+                czechRepublic: "Česká republika",
+                eu: "Evropská unie",
+                phone: "Telefon",
+                legalNotice: "Právní upozornění",
+                legal1: "B2BAdmin s.r.o. poskytuje pouze administrativní a dokumentační služby. Nejsme licencovaná personální agentura, náborová firma ani poskytovatel zaměstnanců podle:",
+                legal2: "Nezabýváme se umisťováním pracovníků, párováním pracovních míst, zprostředkováním zaměstnání ani náborovými aktivitami. Všechny služby jsou striktně omezeny na přípravu dokumentů, compliance podání, překlady a administrativní koordinaci mezi nezávisle smluvními stranami.",
+                legal3: "Klienti jsou výhradně odpovědní za své přímé pracovní vztahy a soulad se všemi platnými pracovními zákony.",
+                footerText: "Pouze administrativní a dokumentační služby. V souladu s EU GDPR.",
+                cookieText: "Používáme cookies pro detekci jazyka a analytiku. Pokračováním souhlasíte s našimi Zásadami ochrany osobních údajů a GDPR."
+            },
+            ro: {
+                tagline: "Documentație Administrativă pentru Forța de Muncă Internațională",
+                disclaimer: "Nu recrutăm. Nu potrivim. Nu mediem angajarea.<br>Ne ocupăm de documente.",
+                whatWeDo: "Ce Facem",
+                intro1: "Companiile au nevoie de documentație adecvată pentru a angaja legal lucrători internaționali. B2BAdmin pregătește, revizuiește și depune documentația necesară — contracte de muncă, cereri de permis de muncă, rapoarte de conformitate și depuneri de reglementare.",
+                intro2: "Nu găsim angajați. Nu găsim angajatori. Nu conectăm părți. Ne asigurăm că documentele între părțile existente sunt corecte, complete și conforme.",
+                ourServices: "Serviciile Noastre",
+                servicesSubtitle: "Documentație administrativă pentru companii cu nevoi de forță de muncă internațională.",
+                docPrep: "Pregătirea Documentelor",
+                docPrepDesc: "Redactarea contractelor de muncă, a cererilor de permis de muncă și a depunerilor de reglementare conform cerințelor legale UE, locale și internaționale.",
+                contractReview: "Revizuirea Contractelor",
+                contractReviewDesc: "Revizuirea acordurilor existente între companii și agenții de recrutare pentru completitudine administrativă și conformitate de reglementare.",
+                complianceFiling: "Depunerea Conformității",
+                complianceFilingDesc: "Depunerea documentației necesare la autoritățile de imigrare, inspectoratele de muncă și oficiile fiscale în numele clienților noștri.",
+                deadlineTracking: "Urmărirea Termenelor",
+                deadlineTrackingDesc: "Monitorizarea datelor de expirare a documentelor, a termenelor de reînnoire și a programelor de depunere de reglementare pentru a preveni sancțiunile.",
+                translation: "Traducere și Legalizare",
+                translationDesc: "Traduceri autorizate și legalizarea documentelor în mai multe limbi, inclusiv standarde UE și mondiale.",
+                archive: "Gestionarea Arhivelor",
+                archiveDesc: "Stocare digitală și fizică organizată a documentelor pentru pregătirea auditului și referință legală.",
+                howItWorks: "Cum Funcționează",
+                processSubtitle: "Fluxul administrativ de la cererea de document la livrare.",
+                step1: "Cerere de Document",
+                step1Desc: "Compania dvs. depune documentația necesară — contracte, permise, formulare de conformitate sau traduceri.",
+                step2: "Pregătire",
+                step2Desc: "Redactăm, revizuim sau traducem documentele conform standardelor legale aplicabile.",
+                step3: "Verificare",
+                step3Desc: "Verificăm completitudinea, acuratețea și conformitatea de reglementare înainte de depunere.",
+                step4: "Depunere și Livrare",
+                step4Desc: "Depunem documentele la autoritățile relevante sau livrăm documentația completată echipei dvs. juridice.",
+                step5: "Arhivare",
+                step5Desc: "Menținem înregistrări organizate pentru referințe viitoare, audituri sau reînnoiri.",
+                industries: "Industrii pe care le Sprijinim",
+                industriesSubtitle: "Documentație administrativă pentru companii din diverse sectoare la nivel mondial.",
+                sector: "Sector",
+                documentation: "Suport Documentar",
+                gastronomy: "Gastronomie și Servicii Alimentare",
+                gastronomyDesc: "Contracte de muncă, certificate de conformitate sanitară, permise de muncă pentru personalul de bucătărie și servicii",
+                hospitality: "Ospitalitate",
+                hospitalityDesc: "Permise de muncă sezoniere, contracte ale personalului hotelier, înregistrări la biroul de turism",
+                construction: "Construcții",
+                constructionDesc: "Autorizație de muncă pentru lucrători străini, documentație de conformitate a siguranței, contracte cu subcontractanți",
+                logistics: "Logistică și Operațiuni",
+                logisticsDesc: "Certificare șoferi, permise de transport, documentație de muncă transfrontalieră",
+                manufacturing: "Producție și Industrie",
+                manufacturingDesc: "Contracte ale muncitorilor de fabrică, verificarea calificărilor tehnice, depuneri de siguranță industrială",
+                professional: "Servicii Profesionale",
+                professionalDesc: "Acorduri de angajare executive, documentație de conformitate legală, contracte de management",
+                gdprTitle: "GDPR și Conformitate UE",
+                gdprIntro: "Ca firmă cehă care operează în Uniunea Europeană, respectăm cele mai înalte standarde de protecție a datelor și conformitate de reglementare.",
+                gdpr1: "Conformitate GDPR",
+                gdpr1Desc: "Conformitate deplină cu Regulamentul UE 2016/679. Datele dvs. sunt procesate legal, echitabil și transparent.",
+                gdpr2: "Minimizarea Datelor",
+                gdpr2Desc: "Colectăm doar datele necesare pentru procesarea documentelor. Nu stocăm informații personale inutile.",
+                gdpr3: "Dreptul la Ștergere",
+                gdpr3Desc: "Puteți solicita ștergerea completă a datelor dvs. în orice moment. Nu menținem copii ascunse.",
+                gdpr4: "Transferuri Transfrontaliere",
+                gdpr4Desc: "Toate transferurile internaționale de date respectă Clauzele Contractuale Standard ale UE și deciziile de adecvare.",
+                gdpr5: "Legea UE privind IA",
+                gdpr5Desc: "Sistemele noastre automate respectă cerințele Legii UE privind Inteligența Artificială pentru transparență.",
+                gdpr6: "Regulamentul eIDAS",
+                gdpr6Desc: "Semnăturile electronice și autentificarea documentelor îndeplinesc standardele UE eIDAS.",
+                contact: "Contact",
+                contactSubtitle: "Trimiteți cerințele dvs. de documentație sau întrebați despre serviciile noastre administrative.",
+                office: "Birou",
+                czechRepublic: "Republica Cehă",
+                eu: "Uniunea Europeană",
+                phone: "Telefon",
+                legalNotice: "Notă Legală",
+                legal1: "B2BAdmin s.r.o. oferă doar servicii administrative și de documentație. Nu suntem agenție de angajare licențiată, firmă de recrutare sau furnizor de personal în conformitate cu:",
+                legal2: "Nu ne ocupăm de plasarea lucrătorilor, potrivirea locurilor de muncă, medierea angajării sau activități de recrutare. Toate serviciile sunt strict limitate la pregătirea documentelor, depunerea de conformitate, traduceri și coordonarea administrativă între părțile contractante independente.",
+                legal3: "Clienții sunt exclusiv responsabili pentru relațiile lor directe de muncă și conformitatea cu toate legile aplicabile ale muncii.",
+                footerText: "Doar servicii administrative și de documentație. Conform GDPR UE.",
+                cookieText: "Folosim cookie-uri pentru detectarea limbii și analiză. Continuând, sunteți de acord cu Politica noastră de Confidențialitate și conformitatea GDPR."
+            },
+            de: {
+                tagline: "Administrative Dokumentation für internationale Belegschaften",
+                disclaimer: "Wir rekrutieren nicht. Wir vermitteln nicht. Wir vermitteln keine Arbeitsplätze.<br>Wir bearbeiten Dokumente.",
+                whatWeDo: "Was wir tun",
+                intro1: "Unternehmen benötigen ordnungsgemäße Dokumentation, um internationale Arbeitskräfte legal zu beschäftigen. B2BAdmin bereitet, prüft und reicht die erforderlichen Unterlagen ein — Arbeitsverträge, Arbeitserlaubnisanträge, Compliance-Berichte und behördliche Einreichungen.",
+                intro2: "Wir finden keine Mitarbeiter. Wir finden keine Arbeitgeber. Wir verbinden keine Parteien. Wir stellen sicher, dass die Dokumente zwischen bestehenden Parteien korrekt, vollständig und compliant sind.",
+                ourServices: "Unsere Dienstleistungen",
+                servicesSubtitle: "Administrative Dokumentation für Unternehmen mit internationalem Personalbedarf.",
+                docPrep: "Dokumentenvorbereitung",
+                docPrepDesc: "Erstellung von Arbeitsverträgen, Arbeitserlaubnisanträgen und behördlichen Einreichungen gemäß EU-, lokalen und internationalen Rechtsvorschriften.",
+                contractReview: "Vertragsprüfung",
+                contractReviewDesc: "Prüfung bestehender Vereinbarungen zwischen Unternehmen und Personalagenturen auf administrative Vollständigkeit und regulatorische Compliance.",
+                complianceFiling: "Compliance-Einreichung",
+                complianceFilingDesc: "Einreichung erforderlicher Unterlagen bei Einwanderungsbehörden, Arbeitsinspektoraten und Finanzämtern im Namen unserer Mandanten.",
+                deadlineTracking: "Fristenüberwachung",
+                deadlineTrackingDesc: "Überwachung von Dokumentenablaufdaten, Verlängerungsfristen und regulatorischen Einreichungsplänen zur Vermeidung von Strafen.",
+                translation: "Übersetzung & Beglaubigung",
+                translationDesc: "Beglaubigte Übersetzungen und Beglaubigung von Dokumenten in mehreren Sprachen einschließlich EU- und weltweiter Standards.",
+                archive: "Archivverwaltung",
+                archiveDesc: "Organisierte digitale und physische Dokumentenspeicherung für Auditbereitschaft und rechtliche Referenz.",
+                howItWorks: "Wie es funktioniert",
+                processSubtitle: "Administrativer Workflow von der Dokumentenanforderung bis zur Auslieferung.",
+                step1: "Dokumentenanforderung",
+                step1Desc: "Ihr Unternehmen reicht die benötigten Unterlagen ein — Verträge, Genehmigungen, Compliance-Formulare oder Übersetzungen.",
+                step2: "Vorbereitung",
+                step2Desc: "Wir erstellen, prüfen oder übersetzen die Dokumente gemäß geltenden Rechtsstandards.",
+                step3: "Überprüfung",
+                step3Desc: "Wir prüfen Vollständigkeit, Genauigkeit und regulatorische Compliance vor der Einreichung.",
+                step4: "Einreichung & Auslieferung",
+                step4Desc: "Wir reichen Dokumente bei den zuständigen Behörden ein oder liefern fertige Unterlagen an Ihr Rechtsteam.",
+                step5: "Archivierung",
+                step5Desc: "Wir führen organisierte Aufzeichnungen für zukünftige Referenz, Audits oder Verlängerungen.",
+                industries: "Branchen, die wir unterstützen",
+                industriesSubtitle: "Administrative Dokumentation für Unternehmen in verschiedenen Sektoren weltweit.",
+                sector: "Branche",
+                documentation: "Dokumentationsunterstützung",
+                gastronomy: "Gastronomie & Lebensmitteldienste",
+                gastronomyDesc: "Arbeitsverträge, Gesundheits-Compliance-Zertifikate, Arbeitserlaubnisse für Küchen- und Servicepersonal",
+                hospitality: "Hotellerie",
+                hospitalityDesc: "Saisonale Arbeitserlaubnisse, Hotelpersonalverträge, Tourismusbehördenregistrierungen",
+                construction: "Bauwesen",
+                constructionDesc: "Arbeitsgenehmigungen für ausländische Arbeiter, Sicherheitscompliance-Dokumentation, Subunternehmerverträge",
+                logistics: "Logistik & Betrieb",
+                logisticsDesc: "Fahrerbescheinigungen, Transportgenehmigungen, grenzüberschreitende Arbeitsunterlagen",
+                manufacturing: "Fertigung & Industrie",
+                manufacturingDesc: "Fabrikarbeiterverträge, technische Qualifikationsprüfung, industrielle Sicherheitseinreichungen",
+                professional: "Professionelle Dienstleistungen",
+                professionalDesc: "Führungskräfte-Arbeitsverträge, rechtliche Compliance-Dokumentation, Managementverträge",
+                gdprTitle: "DSGVO & EU-Compliance",
+                gdprIntro: "Als tschechisches Unternehmen innerhalb der Europäischen Union halten wir die höchsten Standards des Datenschutzes und der regulatorischen Compliance ein.",
+                gdpr1: "DSGVO-Compliance",
+                gdpr1Desc: "Volle Compliance mit der EU-Verordnung 2016/679. Ihre Daten werden rechtmäßig, fair und transparent verarbeitet.",
+                gdpr2: "Datenminimierung",
+                gdpr2Desc: "Wir erheben nur für die Dokumentenverarbeitung notwendige Daten. Es werden keine unnötigen persönlichen Informationen gespeichert.",
+                gdpr3: "Recht auf Löschung",
+                gdpr3Desc: "Sie können jederzeit die vollständige Löschung Ihrer Daten beantragen. Wir führen keine versteckten Kopien.",
+                gdpr4: "Grenzüberschreitende Übertragungen",
+                gdpr4Desc: "Alle internationalen Datenübertragungen entsprechen den EU-Standardvertragsklauseln und Angemessenheitsentscheidungen.",
+                gdpr5: "EU-KI-Gesetz",
+                gdpr5Desc: "Unsere automatisierten Systeme entsprechen den Transparenzanforderungen des EU-KI-Gesetzes.",
+                gdpr6: "eIDAS-Verordnung",
+                gdpr6Desc: "Elektronische Signaturen und Dokumentenauthentifizierung erfüllen EU-eIDAS-Standards.",
+                contact: "Kontakt",
+                contactSubtitle: "Reichen Sie Ihre Dokumentenanforderungen ein oder erkundigen Sie sich nach unseren administrativen Dienstleistungen.",
+                office: "Büro",
+                czechRepublic: "Tschechische Republik",
+                eu: "Europäische Union",
+                phone: "Telefon",
+                legalNotice: "Rechtlicher Hinweis",
+                legal1: "B2BAdmin s.r.o. bietet ausschließlich administrative und Dokumentationsdienstleistungen an. Wir sind keine lizenzierte Personalagentur, Rekrutierungsfirma oder Personalvermittlung gemäß:",
+                legal2: "Wir betreiben keine Arbeitskräftevermittlung, Stellenvermittlung, Arbeitsvermittlung oder Rekrutierungstätigkeiten. Alle Dienstleistungen sind streng begrenzt auf Dokumentenvorbereitung, Compliance-Einreichung, Übersetzung und administrative Koordination zwischen unabhängig vertraglichen Parteien.",
+                legal3: "Mandanten sind allein verantwortlich für ihre direkten Arbeitsverhältnisse und die Einhaltung aller geltenden Arbeitsgesetze.",
+                footerText: "Nur administrative und Dokumentationsdienstleistungen. EU-DSGVO-konform.",
+                cookieText: "Wir verwenden Cookies für Spracherkennung und Analytik. Durch die Fortsetzung stimmen Sie unserer Datenschutzerklärung und DSGVO-Compliance zu."
+            },
+            es: {
+                tagline: "Documentación Administrativa para Fuerza Laboral Internacional",
+                disclaimer: "No reclutamos. No emparejamos. No mediamos empleo.<br>Manejamos documentos.",
+                whatWeDo: "Qué Hacemos",
+                intro1: "Las empresas necesitan documentación adecuada para emplear trabajadores internacionales legalmente. B2BAdmin prepara, revisa y presenta la documentación requerida — contratos de trabajo, solicitudes de permiso de trabajo, informes de cumplimiento y presentaciones regulatorias.",
+                intro2: "No encontramos empleados. No encontramos empleadores. No conectamos partes. Nos aseguramos de que los documentos entre las partes existentes sean correctos, completos y conformes.",
+                ourServices: "Nuestros Servicios",
+                servicesSubtitle: "Documentación administrativa para empresas con necesidades de fuerza laboral internacional.",
+                docPrep: "Preparación de Documentos",
+                docPrepDesc: "Redacción de contratos de trabajo, solicitudes de permiso de trabajo y presentaciones regulatorias según requisitos legales de la UE, locales e internacionales.",
+                contractReview: "Revisión de Contratos",
+                contractReviewDesc: "Revisión de acuerdos existentes entre empresas y agencias de reclutamiento para integridad administrativa y cumplimiento regulatorio.",
+                complianceFiling: "Presentación de Cumplimiento",
+                complianceFilingDesc: "Presentación de documentación requerida ante autoridades de inmigración, inspectorías de trabajo y oficinas fiscales en nombre de nuestros clientes.",
+                deadlineTracking: "Seguimiento de Plazos",
+                deadlineTrackingDesc: "Monitoreo de fechas de vencimiento de documentos, plazos de renovación y calendarios de presentación regulatoria para prevenir sanciones.",
+                translation: "Traducción y Notarización",
+                translationDesc: "Traducciones certificadas y notarización de documentos en múltiples idiomas incluyendo estándares de la UE y mundiales.",
+                archive: "Gestión de Archivos",
+                archiveDesc: "Almacenamiento digital y físico organizado de documentos para preparación de auditorías y referencia legal.",
+                howItWorks: "Cómo Funciona",
+                processSubtitle: "Flujo de trabajo administrativo desde la solicitud de documento hasta la entrega.",
+                step1: "Solicitud de Documento",
+                step1Desc: "Su empresa presenta la documentación necesaria — contratos, permisos, formularios de cumplimiento o traducciones.",
+                step2: "Preparación",
+                step2Desc: "Redactamos, revisamos o traducimos los documentos según los estándares legales aplicables.",
+                step3: "Verificación",
+                step3Desc: "Verificamos integridad, precisión y cumplimiento regulatorio antes de la presentación.",
+                step4: "Presentación y Entrega",
+                step4Desc: "Presentamos documentos ante las autoridades relevantes o entregamos documentación completada a su equipo legal.",
+                step5: "Archivo",
+                step5Desc: "Mantenemos registros organizados para referencia futura, auditorías o renovaciones.",
+                industries: "Industrias que Apoyamos",
+                industriesSubtitle: "Documentación administrativa para empresas en diversos sectores en todo el mundo.",
+                sector: "Sector",
+                documentation: "Soporte Documental",
+                gastronomy: "Gastronomía y Servicios de Alimentos",
+                gastronomyDesc: "Contratos de trabajo, certificados de cumplimiento sanitario, permisos de trabajo para personal de cocina y servicio",
+                hospitality: "Hostelería",
+                hospitalityDesc: "Permisos de trabajo estacionales, contratos de personal hotelero, registros en junta de turismo",
+                construction: "Construcción",
+                constructionDesc: "Autorización de trabajo para trabajadores extranjeros, documentación de cumplimiento de seguridad, contratos con contratistas",
+                logistics: "Logística y Operaciones",
+                logisticsDesc: "Certificación de conductores, permisos de transporte, documentación de empleo transfronterizo",
+                manufacturing: "Manufactura e Industria",
+                manufacturingDesc: "Contratos de trabajadores de fábrica, verificación de calificación técnica, presentaciones de seguridad industrial",
+                professional: "Servicios Profesionales",
+                professionalDesc: "Acuerdos de empleo ejecutivo, documentación de cumplimiento legal, contratos de gestión",
+                gdprTitle: "RGPD y Cumplimiento de la UE",
+                gdprIntro: "Como empresa checa operando dentro de la Unión Europea, adherimos a los más altos estándares de protección de datos y cumplimiento regulatorio.",
+                gdpr1: "Cumplimiento RGPD",
+                gdpr1Desc: "Cumplimiento total con el Reglamento de la UE 2016/679. Sus datos se procesan legalmente, justa y transparentemente.",
+                gdpr2: "Minimización de Datos",
+                gdpr2Desc: "Recopilamos solo datos necesarios para el procesamiento de documentos. No almacenamos información personal innecesaria.",
+                gdpr3: "Derecho al Borrado",
+                gdpr3Desc: "Puede solicitar la eliminación completa de sus datos en cualquier momento. No mantenemos copias ocultas.",
+                gdpr4: "Transferencias Transfronterizas",
+                gdpr4Desc: "Todas las transferencias internacionales de datos cumplen con las Cláusulas Contractuales Estándar de la UE y decisiones de adecuación.",
+                gdpr5: "Ley de IA de la UE",
+                gdpr5Desc: "Nuestros sistemas automatizados cumplen con los requisitos de la Ley de Inteligencia Artificial de la UE para transparencia.",
+                gdpr6: "Regulación eIDAS",
+                gdpr6Desc: "Las firmas electrónicas y la autenticación de documentos cumplen con los estándares eIDAS de la UE.",
+                contact: "Contacto",
+                contactSubtitle: "Envíe sus requisitos de documentación o consulte sobre nuestros servicios administrativos.",
+                office: "Oficina",
+                czechRepublic: "República Checa",
+                eu: "Unión Europea",
+                phone: "Teléfono",
+                legalNotice: "Aviso Legal",
+                legal1: "B2BAdmin s.r.o. proporciona únicamente servicios administrativos y de documentación. No somos una agencia de empleo licenciada, firma de reclutamiento o proveedor de personal según:",
+                legal2: "No nos dedicamos a la colocación de trabajadores, emparejamiento de empleos, mediación de empleo o actividades de reclutamiento. Todos los servicios están estrictamente limitados a la preparación de documentos, presentación de cumplimiento, traducción y coordinación administrativa entre partes contratantes independientes.",
+                legal3: "Los clientes son únicamente responsables de sus relaciones laborales directas y el cumplimiento de todas las leyes laborales aplicables.",
+                footerText: "Solo servicios administrativos y de documentación. Conforme con RGPD de la UE.",
+                cookieText: "Usamos cookies para detección de idioma y análisis. Al continuar, acepta nuestra Política de Privacidad y cumplimiento del RGPD."
+            },
+            ar: {
+                tagline: "التوثيق الإداري للقوى العاملة الدولية",
+                disclaimer: "لا نقوم بالتوظيف. لا نقوم بالمطابقة. لا نقوم بالوساطة في التوظيف.<br>نحن نتعامل مع المستندات.",
+                whatWeDo: "ما نقوم به",
+                intro1: "تحتاج الشركات إلى توثيق مناسب لتوظيف العمال الدوليين بشكل قانوني. تقوم B2BAdmin بإعداد ومراجعة وتقديم الأوراق المطلوبة — عقود العمل، طلبات تصاريح العمل، تقارير الامتثال، والتقديمات التنظيمية.",
+                intro2: "لا نبحث عن موظفين. لا نبحث عن أصحاب عمل. لا نربط بين الأطراف. نضمن أن المستندات بين الأطراف الموجودة صحيحة وكاملة ومتوافقة.",
+                ourServices: "خدماتنا",
+                servicesSubtitle: "التوثيق الإداري للشركات ذات الاحتياجات الدولية للقوى العاملة.",
+                docPrep: "إعداد المستندات",
+                docPrepDesc: "صياغة عقود العمل، طلبات تصاريح العمل، والتقديمات التنظيمية وفقًا لمتطلبات القانون الأوروبي والمحلي والدولي.",
+                contractReview: "مراجعة العقود",
+                contractReviewDesc: "مراجعة الاتفاقيات الحالية بين الشركات ووكالات التوظيف من حيث الاكتمال الإداري والامتثال التنظيمي.",
+                complianceFiling: "تقديم الامتثال",
+                complianceFilingDesc: "تقديم المستندات المطلوبة إلى سلطات الهجرة، ومفتشيات العمل، والمكاتب الضريبية نيابة عن عملائنا.",
+                deadlineTracking: "تتبع المواعيد النهائية",
+                deadlineTrackingDesc: "مراقبة تواريخ انتهاء صلاحية المستندات، ومواعيد التجديد، وجداول التقديم التنظيمي لمنع العقوبات.",
+                translation: "الترجمة والتوثيق",
+                translationDesc: "ترجمات معتمدة وتوثيق المستندات بعدة لغات بما في ذلك معايير الاتحاد الأوروبي والعالمية.",
+                archive: "إدارة الأرشيف",
+                archiveDesc: "التخزين الرقمي والمادي المنظم للمستندات لاستعداد التدقيق والمرجعية القانونية.",
+                howItWorks: "كيفية العمل",
+                processSubtitle: "سير العمل الإداري من طلب المستند إلى التسليم.",
+                step1: "طلب المستند",
+                step1Desc: "تقدم شركتك الأوراق المطلوبة — العقود، التصاريح، نماذج الامتثال، أو الترجمات.",
+                step2: "الإعداد",
+                step2Desc: "نقوم بصياغة أو مراجعة أو ترجمة المستندات وفقًا للمعايير القانونية المعمول بها.",
+                step3: "التحقق",
+                step3Desc: "نتحقق من الاكتمال والدقة والامتثال التنظيمي قبل التقديم.",
+                step4: "التقديم والتسليم",
+                step4Desc: "نقدم المستندات إلى السلطات المعنية أو نسلم الأوراق المكتملة إلى فريقك القانوني.",
+                step5: "الأرشفة",
+                step5Desc: "نحتفظ بسجلات منظمة للرجوع إليها في المستقبل، أو للتدقيق، أو للتجديد.",
+                industries: "الصناعات التي ندعمها",
+                industriesSubtitle: "التوثيق الإداري للشركات عبر القطاعات في جميع أنحاء العالم.",
+                sector: "القطاع",
+                documentation: "دعم التوثيق",
+                gastronomy: "المطاعم وخدمات الأغذية",
+                gastronomyDesc: "عقود العمل، شهادات الامتثال الصحي، تصاريح العمل لموظفي المطبخ والخدمة",
+                hospitality: "الضيافة",
+                hospitalityDesc: "تصاريح العمل الموسمية، عقود موظفي الفنادق، تسجيلات مجلس السياحة",
+                construction: "البناء",
+                constructionDesc: "تراخيص العمل للعمال الأجانب، توثيق الامتثال للسلامة، عقود المقاولين",
+                logistics: "الخدمات اللوجستية والعمليات",
+                logisticsDesc: "شهادات السائقين، تصاريح النقل، أوراق العمل عبر الحدود",
+                manufacturing: "التصنيع والصناعة",
+                manufacturingDesc: "عقود عمال المصانع، التحقق من المؤهلات التقنية، تقديمات السلامة الصناعية",
+                professional: "الخدمات المهنية",
+                professionalDesc: "اتفاقيات التوظيف التنفيذي، توثيق الامتثال القانوني، عقود الإدارة",
+                gdprTitle: "اللائحة العامة لحماية البيانات والامتثال للاتحاد الأوروبي",
+                gdprIntro: "كشركة تشيكية تعمل داخل الاتحاد الأوروبي، نلتزم بأعلى معايير حماية البيانات والامتثال التنظيمي.",
+                gdpr1: "الامتثال للائحة العامة لحماية البيانات",
+                gdpr1Desc: "الامتثال الكامل للائحة الاتحاد الأوروبي 2016/679. يتم معالجة بياناتك بشكل قانوني وعادل وشفاف.",
+                gdpr2: "تقليل البيانات",
+                gdpr2Desc: "نحن نجمع فقط البيانات الضرورية لمعالجة المستندات. لا نقوم بتخزين أي معلومات شخصية غير ضرورية.",
+                gdpr3: "الحق في المحو",
+                gdpr3Desc: "يمكنك طلب الحذف الكامل لبياناتك في أي وقت. لا نحتفظ بنسخ مخفية.",
+                gdpr4: "النقل عبر الحدود",
+                gdpr4Desc: "تتوافق جميع عمليات نقل البيانات الدولية مع البنود التعاقدية الموحدة للاتحاد الأوروبي وقرارات الكفاية.",
+                gdpr5: "قانون الذكاء الاصطناعي للاتحاد الأوروبي",
+                gdpr5Desc: "أنظمتنا الآلية تتوافق مع متطلبات قانون الذكاء الاصطناعي للاتحاد الأوروبي للشفافية.",
+                gdpr6: "لائحة eIDAS",
+                gdpr6Desc: "التوقيعات الإلكترونية ومصادقة المستندات تلبي معايير الاتحاد الأوروبي eIDAS.",
+                contact: "اتصل بنا",
+                contactSubtitle: "قدم متطلبات التوثيق الخاصة بك أو استفسر عن خدماتنا الإدارية.",
+                office: "المكتب",
+                czechRepublic: "جمهورية التشيك",
+                eu: "الاتحاد الأوروبي",
+                phone: "الهاتف",
+                legalNotice: "إشعار قانوني",
+                legal1: "B2BAdmin s.r.o. تقدم خدمات إدارية وتوثيقية فقط. نحن لسنا وكالة توظيف مرخصة، أو شركة توظيف، أو مزود موظفين بموجب:",
+                legal2: "لا نقوم بتوظيف العمال، أو مطابقة الوظائف، أو الوساطة في التوظيف، أو أنشطة التوظيف. جميع الخدمات مقتصرة بشكل صارم على إعداد المستندات، وتقديم الامتثال، والترجمة، والتنسيق الإداري بين الأطراف المتعاقدة بشكل مستقل.",
+                legal3: "العملاء وحدهم مسؤولون عن علاقات العمل المباشرة الخاصة بهم والامتثال لجميع قوانين العمل المعمول بها.",
+                footerText: "خدمات إدارية وتوثيقية فقط. متوافقة مع اللائحة العامة لحماية البيانات في الاتحاد الأوروبي.",
+                cookieText: "نستخدم ملفات تعريف الارتباط للكشف عن اللغة والتحليلات. بالمتابعة، فإنك توافق على سياسة الخصوصية والامتثال للائحة العامة لحماية البيانات."
+            },
+            th: {
+                tagline: "เอกสารทางปกครองสำหรับแรงงานนานาชาติ",
+                disclaimer: "เราไม่รับสมัครงาน เราไม่จับคู่ เราไม่เป็นตัวกลางในการจ้างงาน<br>เราจัดการเอกสาร",
+                whatWeDo: "สิ่งที่เราทำ",
+                intro1: "บริษัทต้องการเอกสารที่เหมาะสมเพื่อจ้างแรงงานต่างชาติอย่างถูกกฎหมาย B2BAdmin เตรียม ตรวจสอบ และยื่นเอกสารที่จำเป็น — สัญญาจ้างงาน คำขอใบอนุญาตทำงาน รายงานการปฏิบัติตามกฎระเบียบ และการยื่นเอกสารตามกฎระเบียบ",
+                intro2: "เราไม่หาพนักงาน เราไม่หานายจ้าง เราไม่เชื่อมโยงฝ่ายต่างๆ เราตรวจสอบให้แน่ใจว่าเอกสารระหว่างฝ่ายที่มีอยู่ถูกต้อง สมบูรณ์ และเป็นไปตามกฎระเบียบ",
+                ourServices: "บริการของเรา",
+                servicesSubtitle: "เอกสารทางปกครองสำหรับบริษัทที่มีความต้องการแรงงานนานาชาติ",
+                docPrep: "การเตรียมเอกสาร",
+                docPrepDesc: "การร่างสัญญาจ้างงาน คำขอใบอนุญาตทำงาน และการยื่นเอกสารตามกฎระเบียบตามข้อกำหนดทางกฎหมายของสหภาพยุโรป ท้องถิ่น และนานาชาติ",
+                contractReview: "การตรวจสอบสัญญา",
+                contractReviewDesc: "การตรวจสอบข้อตกลงที่มีอยู่ระหว่างบริษัทและสำนักงานจัดหางานเพื่อความสมบูรณ์ทางปกครองและการปฏิบัติตามกฎระเบียบ",
+                complianceFiling: "การยื่นเอกสารการปฏิบัติตามกฎระเบียบ",
+                complianceFilingDesc: "การยื่นเอกสารที่จำเป็นต่อหน่วยงานตรวจคนเข้าเมือง สำนักงานตรวจแรงงาน และสำนักงานภาษีในนามของลูกค้าของเรา",
+                deadlineTracking: "การติดตามกำหนดเวลา",
+                deadlineTrackingDesc: "การตรวจสอบวันหมดอายุของเอกสาร กำหนดเวลาการต่ออายุ และกำหนดการยื่นเอกสารตามกฎระเบียบเพื่อป้องกันการลงโทษ",
+                translation: "การแปลและรับรองเอกสาร",
+                translationDesc: "การแปลที่ได้รับการรับรองและการรับรองเอกสารในหลายภาษา รวมถึงมาตรฐานของสหภาพยุโรปและทั่วโลก",
+                archive: "การจัดการเอกสารเก็บถาวร",
+                archiveDesc: "การจัดเก็บเอกสารดิจิทัลและกายภาพอย
